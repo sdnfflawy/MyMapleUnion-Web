@@ -244,8 +244,8 @@
     document.title = 'MyMapleUnion - 종료됨';
     document.body.innerHTML =
       '<div style="padding:4rem 1rem;text-align:center">' +
-      '<h1 class="h4">프로그램이 종료되었어요.</h1>' +
-      '<p>이 창(탭)은 닫으셔도 돼요.</p></div>';
+      '<h1 class="h4">프로그램이 종료되었습니다.</h1>' +
+      '<p>이 창(탭)은 닫으셔도 됩니다.</p></div>';
   });
 
   el.toggleKeyBtn.addEventListener('click', () => {

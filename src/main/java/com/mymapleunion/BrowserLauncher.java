@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class BrowserLauncher {
 
     /** application.properties 의 server.port 와 같아야 합니다 */
-    public static final int PORT = 8080;
+    public static final int PORT = 10544;
     public static final String URL = "http://localhost:" + PORT;
 
     @Value("${app.open-browser:false}")
