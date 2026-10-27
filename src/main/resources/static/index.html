@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MyMapleUnion</title>
+  <!-- 부트스트랩은 pom.xml 의 webjars 로 jar 안에 들어 있습니다 -->
+  <link href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/app.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ① 로고 자리: 클릭하면 첫 접속 화면(초기화)으로 돌아갑니다 -->
+  <header class="app-header">
+    <div class="container app-container d-flex justify-content-between align-items-center">
+      <button id="logoBtn" class="logo-btn" type="button" aria-label="처음 화면으로 돌아가기"
+              style="align-items: baseline;">
+        <span style="font-size: 1.7rem; font-weight: 800; letter-spacing: -.02em; color: var(--orange);">MMU</span>
+        <span style="font-size: .95rem; font-weight: 500; color: var(--muted);">MyMapleUnion</span>
+      </button>
+      <button id="quitBtn" type="button" class="btn btn-sm btn-outline-secondary">프로그램 종료</button>
+    </div>
+  </header>
+
+  <main class="container app-container py-4">
+
+    <section class="load-section">
+      <div>
+        <h1 class="page-title">내 계정 캐릭터로 유니온 점수 계산</h1>
+        <p class="page-desc">캐릭터를 불러오면 월드별로 레벨 높은 순 42개가 유니온 점수에 반영됩니다.</p>
+      </div>
+    </section>
+
+    <!-- ② API 키 입력 + 불러오기 -->
+    <section class="key-panel">
+      <label for="apiKeyInput" class="key-label">넥슨 Open API 키</label>
+      <div class="input-group">
+        <input id="apiKeyInput" type="password" class="form-control" autocomplete="off" spellcheck="false"
+               placeholder="발급받은 API 키를 붙여넣으세요">
+        <button id="toggleKeyBtn" type="button" class="btn btn-outline-secondary" aria-pressed="false">보기</button>
+        <button id="loadBtn" type="button" class="btn btn-maple">
+          <span id="loadSpinner" class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+          <span id="loadLabel">캐릭터 불러오기</span>
+        </button>
+      </div>
+
+      <div class="form-check key-remember">
+        <input id="rememberKey" type="checkbox" class="form-check-input">
+        <label for="rememberKey" class="form-check-label">이 PC의 브라우저에 키 기억하기 (공용 PC에서는 체크하지 마세요)</label>
+      </div>
+
+      <p class="key-help">
+        입력한 키는 내 PC에서 실행 중인 이 프로그램을 거쳐 넥슨으로만 전달돼요.
+        <button id="demoBtn" type="button" class="btn btn-link btn-sm p-0 align-baseline">샘플 데이터로 먼저 보기</button>
+      </p>
+
+      <details class="key-guide">
+        <summary>API 키는 어떻게 받나요?</summary>
+        <ol>
+          <li><a href="https://openapi.nexon.com" target="_blank" rel="noopener">openapi.nexon.com</a>에 넥슨 계정으로 로그인합니다.</li>
+          <li>내 애플리케이션 &gt; 애플리케이션 등록에서 게임은 <strong>메이플스토리</strong>, 타입은 <strong>개발 단계</strong>를 고르고 서비스명은 아무 이름이나 적은 뒤, 약관에 동의하고 등록합니다.</li>
+          <li>등록한 애플리케이션의 상세 페이지에서 API Key를 복사해 위 입력칸에 붙여넣습니다.</li>
+        </ol>
+      </details>
+    </section>
+
+    <div id="errorBox" class="alert alert-danger d-none" role="alert"></div>
+
+    <!-- 불러오기 전 -->
+    <section id="emptyState" class="empty-state">
+      <p class="mb-1 fw-semibold">아직 불러온 캐릭터가 없어요.</p>
+      <p class="mb-0 text-secondary">위 입력칸에 API 키를 붙여넣고 &lsquo;캐릭터 불러오기&rsquo;를 눌러 주세요.</p>
+    </section>
+
+    <!-- ③ 불러온 후: 월드 선택 + 점수 + 캐릭터 표 -->
+    <section id="resultSection" class="d-none">
+
+      <div id="demoNotice" class="alert alert-warning d-none" role="status">
+        샘플 데이터를 보여주고 있어요. 내 캐릭터를 보려면 위에 API 키를 입력하고 &lsquo;캐릭터 불러오기&rsquo;를 눌러 주세요.
+      </div>
+
+      <!-- 월드(서버) 선택: 선택한 월드의 캐릭터만 표시/계산 -->
+      <div class="world-bar">
+        <label for="worldSelect" class="world-label">월드</label>
+        <select id="worldSelect" class="form-select world-select"></select>
+      </div>
+
+      <div class="summary" aria-live="polite">
+        <div>
+          <div id="scoreLabel" class="summary-label">유니온 점수</div>
+          <div id="unionScore" class="union-score">0</div>
+        </div>
+        <dl class="summary-side">
+          <div><dt>불러온 값</dt><dd id="baseScore">0</dd></div>
+          <div><dt>변화</dt><dd id="scoreDiff">0</dd></div>
+          <div><dt>반영 캐릭터</dt><dd id="countInfo">0 / 42</dd></div>
+        </dl>
+      </div>
+
+      <div class="table-toolbar">
+        <h2 class="h6 mb-0">캐릭터 목록</h2>
+        <button id="resetLevelsBtn" type="button" class="btn btn-sm btn-outline-secondary">레벨 되돌리기</button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table align-middle char-table">
+          <thead>
+            <tr>
+              <th scope="col" class="col-rank">순위</th>
+              <th scope="col">캐릭터</th>
+              <th scope="col">월드 / 직업</th>
+              <th scope="col" class="col-level">레벨 조정</th>
+            </tr>
+          </thead>
+          <tbody id="charBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container app-container">Data based on NEXON Open API</div>
+  </footer>
+
+  <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

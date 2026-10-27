@@ -1,0 +1,16 @@
+# build outputs
+target/
+build-tmp/
+dist/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# logs
+*.log
+
+# NEVER commit your API key file
+config/local.properties
