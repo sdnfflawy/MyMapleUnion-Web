@@ -17,7 +17,7 @@
 1. [Releases](../../releases)에서 `MyMapleUnion-windows.zip`을 내려받아 압축을 풉니다. (자바 설치 필요 없음)
 2. `MyMapleUnion` 폴더 안의 `MyMapleUnion.exe`를 실행하면 브라우저가 열립니다.
 3. 입력칸에 **넥슨 Open API 키**를 붙여넣고 `캐릭터 불러오기`를 누릅니다.
-   - 키 받는 방법: [openapi.nexon.com](https://openapi.nexon.com) 로그인 → 내 애플리케이션 → 애플리케이션 등록(메이플스토리, 개발 단계) → 상세 페이지에서 API Key 복사
+   - 키 받는 방법: [openapi.nexon.com](https://openapi.nexon.com) 로그인 → 마이 페이지 → 애플리케이션 등록(메이플스토리, 개발 단계) → 상세 페이지에서 API Key 복사
 4. 끝낼 때는 화면 오른쪽 위의 `프로그램 종료` 버튼을 누릅니다.
 
 처음 실행할 때 Windows가 "알 수 없는 게시자" 경고를 보일 수 있습니다. 서명되지 않은 프로그램이라서 나오는 안내이며, 직접 만든 프로그램이라 `추가 정보 → 실행`을 선택하면 됩니다.
