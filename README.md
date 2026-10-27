@@ -25,15 +25,17 @@
 - Java 17, Spring Boot 3.3, Maven
 - Bootstrap 5.3 (WebJars로 포함), 순수 JavaScript
 - 넥슨 Open API (`/maplestory/v1/character/list`)
-- 배포: jpackage (자바 실행 환경 포함 Windows 앱 폴더)
+- 배포 : jpackage (자바 실행 환경 포함 Windows 앱 폴더)
 
 ## 개발자용: 실행과 빌드
-- 실행: 이클립스에서 `MapleUnionApplication` → `Run As > Java Application` → http://localhost:8080
+- 실행 : 이클립스에서 `MapleUnionApplication` → `Run As > Java Application` → http://localhost:8080
 - (선택) `config/local.properties`에 `nexon.api.key=키` 를 적으면 입력칸을 비워도 이 키를 사용합니다 (이 파일은 Git에 올라가지 않습니다)
 - exe 만들기: 이클립스에서 `Run As > Maven build...` (Goals: `clean package`) 후 `build-exe.bat` 실행 → `dist` 폴더에 결과가 생깁니다
 
 ## 보안 안내
 - API 키는 내 PC에서 실행 중인 프로그램을 거쳐 넥슨 서버로만 전달되며, 이 저장소나 서버에 저장되지 않습니다.
 - 서버는 `127.0.0.1`(내 PC)에서만 접속되도록 설정되어 있습니다.
+
+
 
 Data based on NEXON Open API
