@@ -11,7 +11,7 @@
 - 키 없이 화면만 보는 샘플 데이터 모드
 
 ## 스크린샷
-<!-- 이 아래에 화면 캡처 이미지를 올려 보세요. 예: ![메인 화면](docs/screenshot.png) -->
+![메인 화면](docs/screenshot.png)
 
 ## 사용 방법 (일반 사용자)
 1. [Releases](../../releases)에서 `MyMapleUnion-windows.zip`을 내려받아 압축을 풉니다. (자바 설치 필요 없음)
