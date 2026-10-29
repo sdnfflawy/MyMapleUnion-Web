@@ -22,7 +22,7 @@
 처음 실행할 때 Windows가 "알 수 없는 게시자" 경고를 보일 수 있습니다. 서명되지 않은 프로그램이라서 나오는 안내이며, 직접 만든 프로그램이라 `추가 정보 → 실행`을 선택하면 됩니다.
 
 ## 개발 환경
-- Java 17, Spring Boot 3.3, Maven
+- Java 17, Spring Boot 3.3, Maven, Cluade
 - Bootstrap 5.3 (WebJars로 포함), 순수 JavaScript
 - 넥슨 Open API (`/maplestory/v1/character/list`)
 - 배포 : jpackage (자바 실행 환경 포함 Windows 앱 폴더)
